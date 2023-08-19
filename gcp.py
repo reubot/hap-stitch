@@ -1,12 +1,27 @@
 #https://stackoverflow.com/questions/55681995/how-to-georeference-an-unreferenced-aerial-image-using-ground-control-points-in
 
+# use wget -r -np https://www.actmapi.act.gov.au/hap/  -c
+
 import shutil
 from osgeo import gdal, osr
 import json
+import csv
+year=1958
+filtered_table=[]
+with open('1950s.csv', newline='') as csvfile:
+	reader = csv.DictReader(csvfile)
+	for row in reader:
+		if  (row['CAPTURE'] == str(year)):
+			filtered_table.append(row)
+			print(row)
+		
+	
+print(filtered_table)
 
+exit()
 for photoid in range(5007,5028+1):
 #	photoid = 5088
-	year=1958
+	
 	run=2
 	orig_fn = '../www.actmapi.act.gov.au/hap/'+str(year)+'/'+str(run)+'/'+ str(photoid) +'.pdf-000.jpg.tiff'
 	output_fn = orig_fn+'.geotiff'
