@@ -6,26 +6,26 @@ import shutil
 from osgeo import gdal, osr
 import json
 import csv
-year=1958
+year=1998
 filtered_table=[]
-with open('1950s.csv', newline='') as csvfile:
+with open(str(year)+'.csv', newline='') as csvfile:
 	reader = csv.DictReader(csvfile)
 	for row in reader:
 		if  (row['CAPTURE'] == str(year)):
 			filtered_table.append(row)
-			print(row)
+			# print(row)
 		
 	
-print(filtered_table)
+# print(filtered_table)
 
-exit()
-for photoid in range(5007,5028+1):
-#	photoid = 5088
+# exit()
+for row in filtered_table:
+	photoid = int(row['PHOTO'])
 	
-	run=2
+	run=int(row['RUN'])
 	orig_fn = '../www.actmapi.act.gov.au/hap/'+str(year)+'/'+str(run)+'/'+ str(photoid) +'.pdf-000.jpg.tiff'
 	output_fn = orig_fn+'.geotiff'
-	jfile = open( "1950sfeatures.json" , "r" )
+	jfile = open( str(year)+"features.json" , "r" )
 	j1950s = json.load(jfile)
 	j1950sfeatures = j1950s["features"]
 	# print(json.dumps(j1950s))
